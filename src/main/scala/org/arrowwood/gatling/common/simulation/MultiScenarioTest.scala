@@ -4,15 +4,15 @@ import io.gatling.core.Predef._
 import io.gatling.core.structure.PopulationBuilder
 import org.arrowwood.gatling.common._
 
-trait MultiClientTest extends Simulation {
+trait MultiScenarioTest extends Simulation {
     /**
-     * Actual test simulation should define clients as a list of the clients to model
+     * Actual test simulation should define scenarios as a list of the scenarios to model
      */
-    def clients : List[PopulationBehavior]
+    def scenarios : List[PopulationBehavior]
 
-    // translate the clients into the form needed for Gatling
+    // translate the scenario into the form needed for Gatling
     private def behavior: List[PopulationBuilder] =
-        clients.flatMap { _.behavior( Test.multiplier ) }
+        scenarios.flatMap { _.behavior( Test.multiplier ) }
 
     // execute the simulation
     setUp( behavior )

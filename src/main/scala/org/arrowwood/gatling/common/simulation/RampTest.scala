@@ -1,4 +1,4 @@
-package org.arrowwood.gatling.common.Simulation
+package org.arrowwood.gatling.common.simulation
 
 import io.gatling.core.Predef._
 import io.gatling.core.structure.ScenarioBuilder

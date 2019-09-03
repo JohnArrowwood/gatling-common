@@ -35,4 +35,5 @@ class SessionVariable {
     def count  : String = "${" + this.toString + ".size()}"
     def random : String = "${" + this.toString + ".random()}"
 
+    implicit def varname(v : SessionVariable) : String = v.toString
 }

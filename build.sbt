@@ -1,8 +1,10 @@
 name := "gatling-common"
 
-version := "0.1"
+organization := "org.arrowwood"
 
-//resolvers += "Artima Maven Repository" at "http://repo.artima.com/releases"
+version := "0.2-SNAPSHOT"
+
+publishTo := Some(Resolver.file("file", new File("../gatling-common-repository")))
 
 enablePlugins(GatlingPlugin)
 scalaVersion := "2.12.0"

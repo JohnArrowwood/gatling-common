@@ -3,6 +3,8 @@ package org.arrowwood.gatling.common.simulation
 import io.gatling.core.Predef._
 import io.gatling.core.structure.ScenarioBuilder
 
+import org.arrowwood.gatling.common._
+
 trait UnitTest extends Simulation {
     def behavior : ScenarioBuilder
 

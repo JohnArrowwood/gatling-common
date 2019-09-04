@@ -5,7 +5,6 @@ import io.gatling.core.body.Body
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 
-
 import org.arrowwood.gatling.common.session.CommonSessionVariables._
 
 /**

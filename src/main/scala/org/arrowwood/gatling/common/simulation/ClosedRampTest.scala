@@ -6,13 +6,13 @@ import org.arrowwood.gatling.common.{Default, _}
 
 
 /**
- * RampTest
+ * ClosedRampTest
  * Defines a scenario where the behavior is an infinite loop
  * It ramps the user count up to the target number of concurrent users
  * and then sustains it for the duration
  * finally killing the virtual users when the end is reached
  */
-trait RampTest extends Simulation {
+trait ClosedRampTest extends Simulation {
 
     // the behavior to be modeled 
     def behavior : ScenarioBuilder

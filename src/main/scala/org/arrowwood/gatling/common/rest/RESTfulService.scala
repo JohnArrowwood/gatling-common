@@ -82,7 +82,7 @@ trait RESTfulGET extends RESTfulService {
 trait RESTfulPUT extends RESTfulService {
 
     // variable to hold the body to be sent
-    protected var json : Body = null
+    protected var json : Body
     
     // method to construct the body, which by default just sends the JSON Body
     // override this to define custom body construction logic

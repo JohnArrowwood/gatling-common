@@ -3,6 +3,8 @@ package org.arrowwood.gatling.common.rest
 import io.gatling.core.Predef._
 import io.gatling.core.body.Body
 import io.gatling.http.Predef._
+import io.gatling.http.request.builder.HttpRequestBuilder
+
 
 import org.arrowwood.gatling.common.session.CommonSessionVariables._
 
@@ -14,8 +16,24 @@ import org.arrowwood.gatling.common.session.CommonSessionVariables._
  */
 trait RESTfulService 
 {
-    protected val description : String  // the description that Gatling will associate the request with for reporting
-    protected def url : String          // the URL to request
+    // The description that Gatling will associate the request with, for reporting
+    protected val description : String  
+
+    // The path that individual endpoints have to request - to be used when constructing the URL
+    protected def path : String
+
+    // The URL that will be requested.  To be defined by the implementing class/object
+    protected def url : String
+
+    // Each request method defines the base request
+    def baseRequest : HttpRequestBuilder
+
+    // By default, no modifiecations are made to the request
+    // Subclasses may override this in order to add custom headers, etc.
+    def modify ( request : HttpRequestBuilder ) : HttpRequestBuilder = request
+
+    // The actual request to be sent is the base request as modified by whatever changes need to be made
+    def request : HttpRequestBuilder = this.modify( this.baseRequest )
 
     // add request headers
     protected var requestHeaders: Map[String,String] = Map()
@@ -45,7 +63,7 @@ trait RESTfulService
  * trait to define an object that represents a GET request against a RESTful API
  */
 trait RESTfulGET extends RESTfulService {
-    def gatlingRequest = 
+    def baseRequest = 
         http( description )
             .get( url )
             .header( HttpHeaderNames.Accept, HttpHeaderValues.ApplicationJson )
@@ -59,13 +77,19 @@ trait RESTfulGET extends RESTfulService {
 }
 
 /**
- * RESTfulPUT
+ * RESTfulPUT 
  * trait to define an object that represents a PUT request against a RESTful API
  */
 trait RESTfulPUT extends RESTfulService {
-    protected var json : Body
-    protected def body : Body = json  // override to make custom body construction logic
-    def gatlingRequest =
+
+    // variable to hold the body to be sent
+    protected var json : Body = null
+    
+    // method to construct the body, which by default just sends the JSON Body
+    // override this to define custom body construction logic
+    protected def body : Body = json
+
+    def baseRequest =
         http( description )
             .put( url )
             .header( HttpHeaderNames.ContentType, HttpHeaderValues.ApplicationJson )
@@ -85,9 +109,15 @@ trait RESTfulPUT extends RESTfulService {
  * trait to define an object that represents a POST request against a RESTful API
  */
 trait RESTfulPOST extends RESTfulService {
+
+    // variable to hold the body to be sent
     protected var json : Body
-    protected def body : Body = json  // override to make custom body construction logic
-    def gatlingRequest =
+    
+    // method to construct the body, which by default just sends the JSON Body
+    // override this to define custom body construction logic
+    protected def body : Body = json
+
+    def baseRequest =
         http( description )
             .post( url )
             .header( HttpHeaderNames.ContentType, HttpHeaderValues.ApplicationJson )
@@ -108,7 +138,7 @@ trait RESTfulPOST extends RESTfulService {
  * Differs from RESTfulPOST in that it sends standard URL-encoded form data
  */
 trait RESTfulFormPOST extends RESTfulService {
-    def gatlingRequest =
+    def baseRequest =
         http( description )
             .post( url )
             .header( HttpHeaderNames.ContentType, HttpHeaderValues.ApplicationFormUrlEncoded )
@@ -127,7 +157,7 @@ trait RESTfulFormPOST extends RESTfulService {
  * trait to define an object that represents a DELETE request against a RESTful API
  */
 trait RESTfulDELETE extends RESTfulService {
-    def gatlingRequest =
+    def baseRequest =
         http( description )
             .delete( url )
             .header( HttpHeaderNames.Accept, HttpHeaderValues.ApplicationJson )
@@ -145,7 +175,7 @@ trait RESTfulDELETE extends RESTfulService {
  * trait to define an object that represents a HEAD request against a RESTful API
  */
 trait RESTfulHEAD extends RESTfulService {
-    def gatlingRequest =
+    def baseRequest =
         http( description )
             .head( url )
             .header( HttpHeaderNames.Accept, HttpHeaderValues.ApplicationJson )
@@ -176,7 +206,7 @@ trait IdSetter
  */
 trait CustomJson
 {
-    protected var json : Body
+    protected var json : Body = null
     def body( s : String ) : this.type = { json = StringBody( s ); this }
     def body( b : Body )   : this.type = { json = b;               this }
 }

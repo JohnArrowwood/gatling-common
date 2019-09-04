@@ -2,7 +2,7 @@ name := "gatling-common"
 
 organization := "org.arrowwood"
 
-version := "0.5"
+version := "0.6"
 
 publishTo := Some(Resolver.file("file", new File("../gatling-common-repository")))
 
@@ -20,8 +20,8 @@ scalacOptions := Seq(
 libraryDependencies ++= Seq(
 
     // Gatling
-    "io.gatling.highcharts" % "gatling-charts-highcharts" % "3.2.0",
-    "io.gatling"            % "gatling-test-framework"    % "3.2.0",
+    "io.gatling.highcharts" % "gatling-charts-highcharts" % "3.2.1",
+    "io.gatling"            % "gatling-test-framework"    % "3.2.1",
 
     // ScalaTest
     "org.scalactic" %% "scalactic" % "3.0.8",

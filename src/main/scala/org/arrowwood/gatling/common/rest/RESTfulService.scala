@@ -2,6 +2,8 @@ package org.arrowwood.gatling.common.rest
 
 import io.gatling.core.Predef._
 import io.gatling.core.body.Body
+import io.gatling.core.session.Expression
+
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 
@@ -22,7 +24,7 @@ trait RESTfulService
     protected def path : String
 
     // The URL that will be requested.  To be defined by the implementing class/object
-    protected def url : String
+    def url : Expression[String]
 
     // Each request method defines the base request
     def baseRequest : HttpRequestBuilder

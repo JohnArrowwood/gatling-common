@@ -30,7 +30,8 @@ trait CommonSessionVariables {
      * to control custom initialization.  To be called in your
      * scenario as .exec( SessionVariables.initialize )
      */
-    def initialize : ( Session => Validation[Session] )
+    def initialize : ( Session => Validation[Session] ) = 
+        session => defaultValues( session )
 
     /**
      * defaultValues
@@ -38,7 +39,7 @@ trait CommonSessionVariables {
      * defined in this class, a session variable is created, to avoid
      * trying to interact with empty variables
      */
-    def defaultValues( session : Session ) : Session = {
+    def defaultValues( session : Session ) : Validation[Session] = {
         var s = session
         this.getClass
             .getMethods
@@ -53,7 +54,7 @@ trait CommonSessionVariables {
     }
 }
 
-object CommonSessionVariables extends CommonSessionVariables {
-    // define a no-op initialization
-    def initialize : ( Session => Validation[Session] ) = session => session
+object CommonSessionVariables 
+extends CommonSessionVariables 
+{
 }

@@ -2,7 +2,7 @@ package io.gatling.config
 
 import io.gatling.core.Predef._
 import io.gatling.core.structure.ScenarioBuilder
-import org.arrowwood.gatling.common.UnitTest
+import org.arrowwood.gatling.common.simulation.UnitTest
 
 class DataDirectorySpec extends UnitTest {
   lazy val feeder = csv( "test/foobar.csv" )

@@ -22,6 +22,12 @@ object Test {
     val environment  : String   = config.getString( "test.environment" )
 
     /**
+     * Test.min_users
+     * When ramping, start at this number (default = 0)
+     */
+    val min_users    : Int      = config.getInt( "test.min_users" )
+    
+    /**
      * Test.users
      * How many users to ramp up to.
      * Only applies to the RampTest simulation, or

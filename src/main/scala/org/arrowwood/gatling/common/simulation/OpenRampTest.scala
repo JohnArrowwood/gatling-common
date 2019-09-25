@@ -16,11 +16,13 @@ import org.arrowwood.gatling.common._
  */
 trait OpenRampTest extends Simulation {
 
+    def http_config = Default.httpConfig
+
     // the behavior to be modeled 
     def behavior : ScenarioBuilder
 
     // the ramp parameters
-    val from = 1.0 / 3600.0
+    val from = if ( Test.min_users > 0 ) Test.min_users else 1.0 / 3600.0
     val to = Test.users * Test.multiplier // per second
 
     setUp( 
@@ -31,7 +33,7 @@ trait OpenRampTest extends Simulation {
                 rampUsersPerSec( to   ) to ( 0  ) during ( Test.rampDownTime ) randomized
             )
     )
-    .protocols( Default.httpConfig )
+    .protocols( http_config )
     .pauses( 
         if ( Test.usePauses ) exponentialPauses
         else                  disabledPauses

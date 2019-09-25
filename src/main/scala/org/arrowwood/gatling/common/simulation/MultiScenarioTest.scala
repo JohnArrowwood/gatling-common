@@ -5,6 +5,9 @@ import io.gatling.core.structure.PopulationBuilder
 import org.arrowwood.gatling.common._
 
 trait MultiScenarioTest extends Simulation {
+
+    def http_config = Default.httpConfig
+
     /**
      * Actual test simulation should define scenarios as a list of the scenarios to model
      * Scenarios are open injection models (no loops)
@@ -21,7 +24,7 @@ trait MultiScenarioTest extends Simulation {
 
     // execute the simulation
     setUp( behavior )
-        .protocols( Default.httpConfig )
+        .protocols( http_config )
         .pauses(
             if ( Test.usePauses ) exponentialPauses
             else                  disabledPauses

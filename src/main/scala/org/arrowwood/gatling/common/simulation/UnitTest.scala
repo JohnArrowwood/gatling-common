@@ -6,10 +6,13 @@ import io.gatling.core.structure.ScenarioBuilder
 import org.arrowwood.gatling.common._
 
 trait UnitTest extends Simulation {
+    
+    def http_config = Default.httpConfig
+    
     def behavior : ScenarioBuilder
 
     setUp( behavior.inject( atOnceUsers(1) ) )
-        .protocols( Default.httpConfig )
+        .protocols( http_config )
         .pauses(
             if ( Test.usePauses ) exponentialPauses
             else                  disabledPauses

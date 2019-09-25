@@ -38,7 +38,7 @@ trait PopulationBehavior {
         rate: Double,
         flow: ScenarioBuilder
     ): PopulationBuilder = {
-        val from = 1.0 / 3600.0
+        val from = if ( Test.min_users > 0 ) Test.min_users else 1.0 / 3600.0
         val to = ( rate * multiplier ) / 3600.0
         flow.inject( 
             rampUsersPerSec( from ) to ( to ) during ( Test.rampUpTime )   randomized,

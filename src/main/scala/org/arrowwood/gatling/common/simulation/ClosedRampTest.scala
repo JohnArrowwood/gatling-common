@@ -14,6 +14,8 @@ import org.arrowwood.gatling.common.{Default, _}
  */
 trait ClosedRampTest extends Simulation {
 
+    def http_config = Default.httpConfig
+
     // the behavior to be modeled 
     def behavior : ScenarioBuilder
 
@@ -24,7 +26,7 @@ trait ClosedRampTest extends Simulation {
                 nothingFor( Test.duration )
             )
     )
-    .protocols( Default.httpConfig )
+    .protocols( http_config )
     .pauses( 
         if ( Test.usePauses ) exponentialPauses
         else                  disabledPauses

@@ -4,7 +4,8 @@ organization := "org.arrowwood"
 
 version := "0.9.4"
 
-publishTo := Some(Resolver.file("file", new File("../gatling-common-repository")))
+//publishTo := Some(Resolver.file("file", new File("../gatling-common-repository")))
+publishTo := sonatypePublishToBundle.value
 
 enablePlugins(GatlingPlugin)
 scalaVersion := "2.12.0"
@@ -36,3 +37,12 @@ libraryDependencies ++= Seq(
     // JSON for Scala
     "org.json4s" %% "json4s-native" % "3.6.7"
 )
+
+credentials += Credentials(
+  "GnuPG Key ID",
+  "gpg",
+  "4770F2904AE3DB8BAAF395522804B53DD3E95CC5",
+  "ignored"
+)
+
+Global / useGpgPinentry := false

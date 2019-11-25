@@ -8,7 +8,7 @@ import org.arrowwood.gatling.common._
 trait UnitTest extends SingleScenarioTest {
     
     def profile = burst(1)
-    def assertions = List(
+    override def assertions = List(
         global.failedRequests.count.is(0)
     )
 

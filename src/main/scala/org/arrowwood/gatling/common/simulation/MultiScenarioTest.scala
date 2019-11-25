@@ -4,10 +4,9 @@ import io.gatling.core.Predef._
 import io.gatling.core.structure.PopulationBuilder
 import org.arrowwood.gatling.common._
 
-trait MultiScenarioTest extends Simulation {
-
-    def http_config = Default.httpConfig
-
+trait MultiScenarioTest 
+extends StandardSimulation 
+{
     /**
      * Actual test simulation should define scenarios as a list of the scenarios to model
      * Scenarios are open injection models (no loops)
@@ -19,16 +18,7 @@ trait MultiScenarioTest extends Simulation {
     def scenarios : List[PopulationBehavior]
 
     // translate the scenario into the form needed for Gatling
-    private def behavior: List[PopulationBuilder] =
+    def users: List[PopulationBuilder] =
         scenarios.flatMap { _.behavior( Test.multiplier ) }
-
-    // execute the simulation
-    setUp( behavior )
-        .protocols( http_config )
-        .pauses(
-            if ( Test.usePauses ) exponentialPauses
-            else                  disabledPauses
-        )
-    .maxDuration( Test.rampUpTime + Test.duration + Test.rampDownTime + 300 )
 
 }

@@ -14,30 +14,8 @@ import org.arrowwood.gatling.common._
  * finally killing any virtual users still running 5 minutes after
  * the end of the ramp-down period
  */
-trait OpenRampTest extends Simulation {
+trait OpenRampTest extends SingleScenarioTest {
 
-    def http_config = Default.httpConfig
-
-    // the behavior to be modeled 
-    def behavior : ScenarioBuilder
-
-    // the ramp parameters
-    val from = if ( Test.min_users > 0 ) Test.min_users else 1.0 / 3600.0
-    val to = Test.users * Test.multiplier // per second
-
-    setUp( 
-        behavior
-            .inject(
-                rampUsersPerSec( from ) to ( to ) during ( Test.rampUpTime )   randomized,
-                constantUsersPerSec        ( to ) during ( Test.duration )     randomized,
-                rampUsersPerSec( to   ) to ( 0  ) during ( Test.rampDownTime ) randomized
-            )
-    )
-    .protocols( http_config )
-    .pauses( 
-        if ( Test.usePauses ) exponentialPauses
-        else                  disabledPauses
-    )
-    .maxDuration( Test.rampUpTime + Test.duration + Test.rampDownTime + 300 )
+    def profile = openRamp
 
 }

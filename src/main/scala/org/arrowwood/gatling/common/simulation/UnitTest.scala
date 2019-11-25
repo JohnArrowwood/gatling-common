@@ -5,20 +5,11 @@ import io.gatling.core.structure.ScenarioBuilder
 
 import org.arrowwood.gatling.common._
 
-trait UnitTest extends Simulation {
+trait UnitTest extends SingleScenarioTest {
     
-    def http_config = Default.httpConfig
-    
-    def behavior : ScenarioBuilder
+    def profile = burst(1)
+    def assertions = List(
+        global.failedRequests.count.is(0)
+    )
 
-    setUp( behavior.inject( atOnceUsers(1) ) )
-        .protocols( http_config )
-        .pauses(
-            if ( Test.usePauses ) exponentialPauses
-            else                  disabledPauses
-        )
-        .assertions(
-            global.failedRequests.count.is(0)
-        )
-  
 }

@@ -7,5 +7,6 @@ extends StandardSimulation
 with UserBehavior
 with UserInjector
 {
+    def profile : Injector
     def users : List[PopulationBuilder] = List( profile( behavior ) )
 }

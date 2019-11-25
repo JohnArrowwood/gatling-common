@@ -2,7 +2,7 @@ name := "gatling-common"
 
 organization := "org.arrowwood"
 
-version := "0.9.5"
+version := "0.9.6"
 
 //publishTo := Some(Resolver.file("file", new File("../gatling-common-repository")))
 publishTo := sonatypePublishToBundle.value

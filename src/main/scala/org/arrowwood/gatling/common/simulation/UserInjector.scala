@@ -11,8 +11,6 @@ import org.arrowwood.gatling.common.Test
 trait UserInjector {
     type Injector = ( ScenarioBuilder ) => PopulationBuilder
 
-    def profile : Injector
-
     // DEFINE UTILITIES TO AID IN INTERACTING WITH THE TEST EXECUTION CONTEXT/CONFIG
 
     /**

@@ -2,7 +2,7 @@ name := "gatling-common"
 
 organization := "org.arrowwood"
 
-version := "0.9.8"
+version := "0.9.9"
 
 //publishTo := Some(Resolver.file("file", new File("../gatling-common-repository")))
 publishTo := sonatypePublishToBundle.value
@@ -21,8 +21,8 @@ scalacOptions := Seq(
 libraryDependencies ++= Seq(
 
     // Gatling
-    "io.gatling.highcharts" % "gatling-charts-highcharts" % "3.2.1",
-    "io.gatling"            % "gatling-test-framework"    % "3.2.1",
+    "io.gatling.highcharts" % "gatling-charts-highcharts" % "3.3.1",
+    "io.gatling"            % "gatling-test-framework"    % "3.3.1",
 
     // ScalaTest
     "org.scalactic" %% "scalactic" % "3.0.8",

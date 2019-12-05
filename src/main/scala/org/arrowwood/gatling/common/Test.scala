@@ -44,6 +44,20 @@ object Test {
     val rampUpTime   : FiniteDuration = Duration( config.getLong( "test.rampUpTime" ), "seconds" )
 
     /**
+     * Test.rampUpStep
+     * When doing a step-ramp, how many virtual users to add every step
+     * Default value is 1.  A good suggested value is one for each server in the application cluster
+     */
+    val rampUpStep : Int = config.getInt( "test.rampUpStep" )
+    
+    /**
+     * Test.rampSteptinme
+     * When ramping up during a stairstep ramp, how long to take to rise from one level to the next
+     * Default is 1 second, to avoid too fast of a jump.
+     */
+    val rampStepTime : FiniteDuration = Duration( config.getLong( "test.rampStepTime" ), "seconds" )
+
+    /**
      * Test.duration
      * How long to sustain the load once the target load level has been reached
      * Applies to RampTest and MultiClientTest, and

@@ -126,7 +126,7 @@ trait UserInjector {
     (scn : ScenarioBuilder ) => {
       assert( step > 0 ) // don't let the user do something stupid!
       val range = to - from // how many users are to be injected, in total
-      val steps = Math.ceil( range.toDouble / step.toDouble ).toInt // how many steps to reach the target
+      val steps = Math.ceil( range.toDouble / step.toDouble ).toInt + 1 // how many steps to reach the target, counting the first step
       val perStepRampTime = Test.rampStepTime
       val totalRampTime = steps * perStepRampTime
       val totalSustainTime = Test.rampUpTime - totalRampTime

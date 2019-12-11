@@ -14,6 +14,12 @@ object Test {
  
     private val config = ConfigFactory.load( "test-parameters" )
 
+    private def inSeconds( path : String ) : FiniteDuration = {
+        val seconds : Double = config.getDouble( path )
+        val nanoseconds : Double = seconds * 1000000000.0
+        Duration( nanoseconds.toLong, "nanoseconds" )
+    }
+
     /**
      * Test.environment
      * A string representing the target, e.g. LOCAL, DEV, QA, PERF, STG, PROD, etc.
@@ -41,7 +47,7 @@ object Test {
      * Applies to RampTest and MultiClientTest, and
      * may be used with custom simulation definitions
      */
-    val rampUpTime   : FiniteDuration = Duration( config.getLong( "test.rampUpTime" ), "seconds" )
+    val rampUpTime   : FiniteDuration = inSeconds( "test.rampUpTime" )
 
     /**
      * Test.rampUpStep
@@ -55,7 +61,7 @@ object Test {
      * When ramping up during a stairstep ramp, how long to take to rise from one level to the next
      * Default is 1 second, to avoid too fast of a jump.
      */
-    val rampStepTime : FiniteDuration = Duration( config.getLong( "test.rampStepTime" ), "seconds" )
+    val rampStepTime : FiniteDuration = inSeconds( "test.rampStepTime" )
 
     /**
      * Test.duration
@@ -63,7 +69,7 @@ object Test {
      * Applies to RampTest and MultiClientTest, and
      * may be used with custom simulation definitions
      */
-    val duration     : FiniteDuration = Duration( config.getLong( "test.duration" ), "seconds" )
+    val duration     : FiniteDuration = inSeconds( "test.duration" )
 
     /**
      * Test.rampDownTime
@@ -72,7 +78,7 @@ object Test {
      * injection profiles (vs. the RampTest, in which each test user lives for the
      * full duration)
      */
-    val rampDownTime : FiniteDuration = Duration( config.getLong( "test.rampDownTime" ), "seconds" )
+    val rampDownTime : FiniteDuration = inSeconds( "test.rampDownTime" )
 
     /**
      * Test.multiplier

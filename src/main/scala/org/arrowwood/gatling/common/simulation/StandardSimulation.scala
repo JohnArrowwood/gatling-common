@@ -14,13 +14,22 @@ with MaxDuration
 
     def users : List[PopulationBuilder]
 
-    setUp( users )
+    val setup = 
+      setUp( users )
+
         .protocols( http_config )
         .pauses(
             if ( Test.usePauses ) exponentialPauses
             else                  disabledPauses
         )
         .assertions( assertions )
-        .maxDuration( max_duration )
+
+    if ( Test.maxRps > 0 )
+      setup.throttle(
+        reachRps( Test.maxRps ) in ( Test.rampUpTime ),
+        holdFor( max_duration )
+      )
+    else
+      setup.maxDuration( max_duration )
 
 }

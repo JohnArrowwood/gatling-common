@@ -101,6 +101,6 @@ object Test {
      * If set to a non-zero value, add request throttling to the injection profile
      * All pre-defined simulation classes honor this.
      */
-    val maxRps : int = config.getInt( "test.maxRps" )
+    val maxRps: Int = config.getInt("test.maxRps")
 
 }

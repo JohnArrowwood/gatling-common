@@ -130,7 +130,7 @@ trait UserInjector {
       val perStepRampTime = Test.rampStepTime
       val totalRampTime = steps * perStepRampTime
       val totalSustainTime = Test.rampUpTime - totalRampTime
-      val perStepTime = FiniteDuration( Math.ceil( totalSustainTime.toMillis / steps ).toLong, MILLISECONDS ) 
+      val perStepTime = FiniteDuration( Math.ceil( totalSustainTime.toMillis.toDouble / steps.toDouble ).toLong, MILLISECONDS )
       scn.inject(
         incrementConcurrentUsers( step )
         .times( steps )

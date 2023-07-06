@@ -8,7 +8,7 @@ version := "0.9.12"
 publishTo := sonatypePublishToBundle.value
 
 enablePlugins(GatlingPlugin)
-scalaVersion := "2.12.0"
+scalaVersion := "2.13.10"
 scalacOptions := Seq(
     "-encoding","UTF-8",
     "-target:jvm-1.8",
@@ -21,8 +21,8 @@ scalacOptions := Seq(
 libraryDependencies ++= Seq(
 
     // Gatling
-    "io.gatling.highcharts" % "gatling-charts-highcharts" % "3.3.1",
-    "io.gatling"            % "gatling-test-framework"    % "3.3.1",
+    "io.gatling.highcharts" % "gatling-charts-highcharts" % "3.9.5",
+    "io.gatling"            % "gatling-test-framework"    % "3.9.5",
 
     // ScalaTest
     "org.scalactic" %% "scalactic" % "3.0.8",
@@ -30,9 +30,6 @@ libraryDependencies ++= Seq(
 
     // TypeSafe Config
     "com.typesafe" % "config" % "1.3.4",
-
-    // Scala Logging
-    "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2",
 
     // JSON for Scala
     "org.json4s" %% "json4s-native" % "3.6.7"
